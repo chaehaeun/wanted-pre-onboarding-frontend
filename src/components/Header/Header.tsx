@@ -7,13 +7,34 @@ const Header = () => {
       <nav>
         <ul>
           <li>
-            <NavLink to="/signin">Sign In</NavLink>
+            <NavLink
+              to="/signin"
+              className={({ isActive }) =>
+                `${isActive ? 'text-blue-500 font-bold' : ''}`
+              }
+            >
+              Sign In
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/signup">Sign Up</NavLink>
+            <NavLink
+              to="/signup"
+              className={({ isActive }) =>
+                `${isActive ? 'text-blue-500 font-bold' : ''}`
+              }
+            >
+              Sign Up
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/todo">Todo</NavLink>
+            <NavLink
+              to="/todo"
+              className={({ isActive }) =>
+                `${isActive ? 'text-blue-500 font-bold' : ''}`
+              }
+            >
+              Todo
+            </NavLink>
           </li>
         </ul>
       </nav>
