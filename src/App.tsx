@@ -1,18 +1,30 @@
-import SignIn from 'components/SignIn'
+import { RootLayout } from 'components'
+import { Home, SignIn, SignUp, Error, Todo } from 'pages'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <div>
-        <p>home</p>
-      </div>
-    ),
-  },
-  {
-    path: '/signin',
-    element: <SignIn />,
+    element: <RootLayout />,
+    errorElement: <Error />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: '/signin',
+        element: <SignIn />,
+      },
+      {
+        path: '/signup',
+        element: <SignUp />,
+      },
+      {
+        path: '/todo',
+        element: <Todo />,
+      },
+    ],
   },
 ])
 
