@@ -6,6 +6,9 @@ module.exports = {
       fontFamily: {
         sans: ['Pretendard Variable', 'Pretendard', 'system-ui'],
       },
+      boxShadow: {
+        wrap: '4px 4px #000',
+      },
     },
   },
   plugins: [],
