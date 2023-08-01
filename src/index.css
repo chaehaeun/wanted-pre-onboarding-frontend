@@ -3,3 +3,15 @@
 @import 'tailwindcss/utilities';
 
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable.css');
+
+html {
+  @apply h-full;
+}
+
+body {
+  @apply flex items-center h-full bg-teal-500;
+}
+
+#root {
+  @apply w-full max-w-lg mx-auto bg-white border-2 border-black min-h-[500px] max-h-full;
+}
