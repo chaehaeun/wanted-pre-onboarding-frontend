@@ -1,2 +1,5 @@
 export { default as RootLayout } from './RootLayout'
 export { default as Header } from './Header/Header'
+export { default as Title } from './Title/Title'
+export { default as AuthForm } from './AuthForm/AuthForm'
+export { default as AuthInput } from './AuthInput/AuthInput'
