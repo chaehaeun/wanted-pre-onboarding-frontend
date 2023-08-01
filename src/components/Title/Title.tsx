@@ -5,7 +5,7 @@ interface TitleProps {
 }
 
 const Title = ({ children }: TitleProps) => {
-  return <h1 className="text-2xl font-semibold text-center mt-7">{children}</h1>
+  return <h1 className="my-5 text-2xl font-semibold text-center">{children}</h1>
 }
 
 export default Title
