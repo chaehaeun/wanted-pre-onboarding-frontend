@@ -5,32 +5,38 @@ const Header = () => {
   return (
     <header>
       <nav>
-        <ul>
-          <li>
+        <ul className="grid w-full grid-cols-3 text-xl text-center border-b-2 border-black">
+          <li className="w-full p-4">
             <NavLink
               to="/signin"
               className={({ isActive }) =>
-                `${isActive ? 'text-blue-500 font-bold' : ''}`
+                `${
+                  isActive ? ' font-black' : 'text-gray-500 font-bold'
+                }  block w-full h-full`
               }
             >
               Sign In
             </NavLink>
           </li>
-          <li>
+          <li className="w-full p-4">
             <NavLink
               to="/signup"
               className={({ isActive }) =>
-                `${isActive ? 'text-blue-500 font-bold' : ''}`
+                `${
+                  isActive ? ' font-black' : 'text-gray-500 font-bold'
+                } block w-full h-full`
               }
             >
               Sign Up
             </NavLink>
           </li>
-          <li>
+          <li className="w-full p-4">
             <NavLink
               to="/todo"
               className={({ isActive }) =>
-                `${isActive ? 'text-blue-500 font-bold' : ''}`
+                `${
+                  isActive ? ' font-black' : ' text-gray-500 font-bold'
+                } block w-full h-full`
               }
             >
               Todo
