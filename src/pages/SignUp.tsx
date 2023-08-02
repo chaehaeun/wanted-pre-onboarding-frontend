@@ -1,18 +1,41 @@
-import { AuthForm, AuthInput } from 'components'
+import { AuthForm, AuthInput, Button } from 'components'
 import Title from 'components/Title/Title'
+import { useEffect, useState } from 'react'
 
 const SignUp = () => {
+  const [validState, setValidState] = useState({
+    email: false,
+    password: false,
+  })
+  const [isValid, setIsValid] = useState(false)
+
+  useEffect(() => {
+    if (validState.email && validState.password) {
+      setIsValid(true)
+    } else {
+      setIsValid(false)
+    }
+  }, [validState])
+
+  const handleValidState = (type: string, isValid: boolean) => {
+    if (type === 'email') {
+      setValidState(prev => ({ ...prev, email: isValid }))
+    } else if (type === 'password') {
+      setValidState(prev => ({ ...prev, password: isValid }))
+    }
+  }
+
   return (
     <div>
       <Title>회원가입</Title>
-      <AuthForm legend={'회원가입 폼'}>
+      <AuthForm type={'signup'} legend={'회원가입 폼'}>
         <AuthInput
           id={'signupEmail'}
           label={'Email'}
           placeholder={'이메일을 입력해주세요.'}
           type={'email'}
           dataTestId={'email-input'}
-          warning="이메일 형식이 올바르지 않습니다."
+          handleValidState={handleValidState}
         />
         <AuthInput
           id={'signupPassword'}
@@ -20,8 +43,11 @@ const SignUp = () => {
           placeholder={'비밀번호를 입력해주세요.'}
           type={'password'}
           dataTestId={'password-input'}
-          warning="비밀번호는 8자 이상이어야 합니다."
+          handleValidState={handleValidState}
         />
+        <Button type="submit" mode="auth" isValid={isValid}>
+          회원가입
+        </Button>
       </AuthForm>
     </div>
   )

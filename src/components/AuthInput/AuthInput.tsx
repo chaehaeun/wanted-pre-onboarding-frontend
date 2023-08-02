@@ -7,6 +7,7 @@ interface AuthInputProps {
   placeholder: string
   type: 'email' | 'password'
   dataTestId: 'email-input' | 'password-input'
+  handleValidState: (type: string, isValid: boolean) => void
 }
 
 const AuthInput = ({
@@ -15,6 +16,7 @@ const AuthInput = ({
   placeholder,
   type,
   dataTestId,
+  handleValidState,
 }: AuthInputProps) => {
   const [value, setValue] = useState('')
   const debouncedValue = useDebounce(value, 300)
@@ -33,10 +35,12 @@ const AuthInput = ({
       if (type === 'email') {
         const isValidEmail = debouncedValue.includes('@')
         setIsValid(isValidEmail)
+        handleValidState('email', isValidEmail)
         setErrorText(isValidEmail ? '' : '이메일 형식이 올바르지 않습니다.')
       } else if (type === 'password') {
         const isValidPassword = debouncedValue.length >= 8
         setIsValid(isValidPassword)
+        handleValidState('password', isValidPassword)
         setErrorText(isValidPassword ? '' : '비밀번호는 8자 이상이어야 합니다.')
       }
     }
