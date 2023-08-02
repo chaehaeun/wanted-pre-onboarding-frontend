@@ -5,6 +5,7 @@ interface AuthButtonProps {
   children: React.ReactNode
   onClick?: () => void
   mode?: 'auth' | 'cancel'
+  dataTestId: 'signup-button' | 'signin-button'
   isValid?: boolean
 }
 
@@ -16,6 +17,7 @@ const Button = ({
   onClick,
   mode,
   isValid,
+  dataTestId,
 }: AuthButtonProps) => {
   switch (mode) {
     case 'auth':
@@ -28,6 +30,7 @@ const Button = ({
       type={type}
       onClick={onClick}
       className={className}
+      data-testid={dataTestId}
       disabled={isValid === null ? false : !isValid}
     >
       {children}

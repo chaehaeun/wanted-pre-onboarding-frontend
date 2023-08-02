@@ -24,7 +24,12 @@ const SignIn = () => {
           dataTestId={'password-input'}
           handleValidState={handleValidState}
         />
-        <Button type="submit" mode="auth" isValid={isValid}>
+        <Button
+          type="submit"
+          mode="auth"
+          isValid={isValid}
+          dataTestId={'signin-button'}
+        >
           로그인
         </Button>
       </AuthForm>
