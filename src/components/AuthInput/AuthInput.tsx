@@ -7,7 +7,6 @@ interface AuthInputProps {
   placeholder: string
   type: 'email' | 'password'
   dataTestId: 'email-input' | 'password-input'
-  warning?: string
 }
 
 const AuthInput = ({
@@ -20,24 +19,28 @@ const AuthInput = ({
   const [value, setValue] = useState('')
   const debouncedValue = useDebounce(value, 300)
 
-  const [isValid, setIsValid] = useState(true)
+  const [isValid, setIsValid] = useState(false)
   const [errorText, setErrorText] = useState('')
+  const [isFirstInput, setIsFirstInput] = useState(false)
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
+    setIsFirstInput(true)
   }
 
   useEffect(() => {
-    if (type === 'email') {
-      const isValidEmail = debouncedValue.includes('@')
-      setIsValid(isValidEmail)
-      setErrorText(isValidEmail ? '' : '이메일 형식이 올바르지 않습니다.')
-    } else if (type === 'password') {
-      const isValidPassword = debouncedValue.length >= 8
-      setIsValid(isValidPassword)
-      setErrorText(isValidPassword ? '' : '비밀번호는 8자 이상이어야 합니다.')
+    if (isFirstInput) {
+      if (type === 'email') {
+        const isValidEmail = debouncedValue.includes('@')
+        setIsValid(isValidEmail)
+        setErrorText(isValidEmail ? '' : '이메일 형식이 올바르지 않습니다.')
+      } else if (type === 'password') {
+        const isValidPassword = debouncedValue.length >= 8
+        setIsValid(isValidPassword)
+        setErrorText(isValidPassword ? '' : '비밀번호는 8자 이상이어야 합니다.')
+      }
     }
-  }, [debouncedValue, type])
+  }, [debouncedValue, type, isFirstInput])
 
   return (
     <div className="relative flex flex-col">
@@ -55,9 +58,11 @@ const AuthInput = ({
         onChange={handleOnChange}
         placeholder={placeholder}
       />
-      <p className={'absolute text-sm font-medium -bottom-6 text-rose-600'}>
-        {isValid ? '' : errorText}
-      </p>
+      {errorText && isFirstInput && (
+        <p className="absolute text-sm font-medium -bottom-6 text-rose-600">
+          {errorText}
+        </p>
+      )}
     </div>
   )
 }
