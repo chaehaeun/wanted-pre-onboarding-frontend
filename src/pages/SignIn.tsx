@@ -1,28 +1,8 @@
 import { AuthForm, AuthInput, Button, Title } from 'components'
-import { useState, useEffect } from 'react'
+import { useAuthForm } from 'hooks'
 
 const SignIn = () => {
-  const [validState, setValidState] = useState({
-    email: false,
-    password: false,
-  })
-  const [isValid, setIsValid] = useState(false)
-
-  useEffect(() => {
-    if (validState.email && validState.password) {
-      setIsValid(true)
-    } else {
-      setIsValid(false)
-    }
-  }, [validState])
-
-  const handleValidState = (type: string, isValid: boolean) => {
-    if (type === 'email') {
-      setValidState(prev => ({ ...prev, email: isValid }))
-    } else if (type === 'password') {
-      setValidState(prev => ({ ...prev, password: isValid }))
-    }
-  }
+  const { isValid, handleValidState } = useAuthForm()
 
   return (
     <div>
