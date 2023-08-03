@@ -13,5 +13,5 @@ body {
 }
 
 #root {
-  @apply w-full max-w-md mx-auto bg-white border-2 border-black min-h-[500px] max-h-full shadow-wrap;
+  @apply w-full max-w-md mx-auto bg-white border-2 border-black min-h-[500px] pb-7 max-h-full shadow-wrap;
 }
