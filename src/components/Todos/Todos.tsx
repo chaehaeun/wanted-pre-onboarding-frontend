@@ -1,4 +1,4 @@
-import { Button } from 'components'
+import { Button, TodoItem } from 'components'
 import React from 'react'
 
 const Todos = () => {
@@ -28,6 +28,24 @@ const Todos = () => {
           </div>
         </fieldset>
       </form>
+
+      <ul className="flex flex-col w-full gap-4 overflow-y-scroll mt-7 max-h-96">
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+      </ul>
     </div>
   )
 }
