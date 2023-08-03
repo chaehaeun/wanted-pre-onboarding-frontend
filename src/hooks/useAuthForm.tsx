@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 const useAuthForm = () => {
   const [validState, setValidState] = useState({
@@ -15,9 +15,9 @@ const useAuthForm = () => {
     }
   }, [validState])
 
-  const handleValidState = (type: string, isValid: boolean) => {
+  const handleValidState = useCallback((type: string, isValid: boolean) => {
     setValidState(prev => ({ ...prev, [type]: isValid }))
-  }
+  }, [])
 
   return { isValid, handleValidState }
 }
