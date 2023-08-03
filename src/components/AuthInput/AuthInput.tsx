@@ -31,20 +31,23 @@ const AuthInput = ({
   }
 
   useEffect(() => {
-    if (isFirstInput) {
-      if (type === 'email') {
-        const isValidEmail = debouncedValue.includes('@')
-        setIsValid(isValidEmail)
-        handleValidState('email', isValidEmail)
-        setErrorText(isValidEmail ? '' : '이메일 형식이 올바르지 않습니다.')
-      } else if (type === 'password') {
-        const isValidPassword = debouncedValue.length >= 8
-        setIsValid(isValidPassword)
-        handleValidState('password', isValidPassword)
-        setErrorText(isValidPassword ? '' : '비밀번호는 8자 이상이어야 합니다.')
-      }
+    if (!isFirstInput) return
+
+    let isValid = false
+    let errorText = ''
+
+    if (type === 'email') {
+      isValid = debouncedValue.includes('@')
+      errorText = isValid ? '' : '이메일 형식이 올바르지 않습니다.'
+    } else if (type === 'password') {
+      isValid = debouncedValue.length >= 8
+      errorText = isValid ? '' : '비밀번호는 8자 이상이어야 합니다.'
     }
-  }, [debouncedValue, type, isFirstInput])
+
+    setIsValid(isValid)
+    handleValidState(type, isValid)
+    setErrorText(errorText)
+  }, [debouncedValue, type, isFirstInput, handleValidState])
 
   return (
     <div className="relative flex flex-col">
