@@ -3,14 +3,14 @@ import React from 'react'
 interface AuthButtonProps {
   type: 'button' | 'submit' | 'reset'
   children: React.ReactNode
-  onClick?: () => void
-  mode?: 'auth' | 'cancel' | 'add' | 'edit' | 'delete'
   dataTestId:
     | 'signup-button'
     | 'signin-button'
     | 'new-todo-add-button'
     | 'modify-button'
     | 'delete-button'
+  onClick?: () => void
+  mode?: 'auth' | 'cancel' | 'add' | 'edit' | 'delete'
   isValid?: boolean
 }
 
@@ -39,7 +39,7 @@ const Button = ({
       break
     case 'delete':
       className =
-        'px-2 py-1 ml-1 bg-teal-500 border-2 border-black cursor-pointer shrink-0 shadow-wrap-sm hover:bg-teal-600'
+        'px-2 py-1 ml-1 bg-gray-400 border-2 border-black cursor-pointer shrink-0 shadow-wrap-sm hover:bg-rose-600'
       break
   }
 
@@ -47,9 +47,9 @@ const Button = ({
     <button
       type={type}
       onClick={onClick}
-      className={className}
+      className={`${className} transition-colors duration-200 ease-out`}
       data-testid={dataTestId}
-      disabled={isValid === null ? false : !isValid}
+      disabled={isValid === undefined ? false : !isValid}
     >
       {children}
     </button>
