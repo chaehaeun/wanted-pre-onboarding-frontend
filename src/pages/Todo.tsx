@@ -1,7 +1,13 @@
+import { Title, Todos } from 'components'
 import React from 'react'
 
 const Todo = () => {
-  return <div>Todo Page!</div>
+  return (
+    <div>
+      <Title>ToDo List</Title>
+      <Todos />
+    </div>
+  )
 }
 
 export default Todo

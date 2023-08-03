@@ -4,8 +4,8 @@ interface AuthButtonProps {
   type: 'button' | 'submit' | 'reset'
   children: React.ReactNode
   onClick?: () => void
-  mode?: 'auth' | 'cancel'
-  dataTestId: 'signup-button' | 'signin-button'
+  mode?: 'auth' | 'cancel' | 'add'
+  dataTestId: 'signup-button' | 'signin-button' | 'new-todo-add-button'
   isValid?: boolean
 }
 
@@ -23,6 +23,11 @@ const Button = ({
     case 'auth':
       className =
         'w-full py-3 mt-4 font-semibold text-white bg-teal-500 border-2 border-black shadow-wrap hover:bg-teal-600 disabled:bg-gray-300 disabled:cursor-not-allowed'
+      break
+    case 'add':
+      className =
+        'px-3 bg-teal-500 border-2 border-l-0 border-black cursor-pointer shrink-0 hover:bg-teal-600'
+      break
   }
 
   return (
