@@ -1,5 +1,5 @@
-import { Button, TodoItem } from 'components'
-import React, { useState } from 'react'
+import { Button, Modal, TodoItem } from 'components'
+import React, { useRef, useState } from 'react'
 
 interface Todo {
   id: string
@@ -10,6 +10,8 @@ interface Todo {
 const Todos = () => {
   const [todos, setTodos] = useState<Todo[]>([])
   const [value, setValue] = useState('')
+  const [showModal, setShowModal] = useState(false)
+  const inputRef = useRef<HTMLInputElement | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
@@ -18,7 +20,11 @@ const Todos = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const trimmedValue = value.trim()
-    if (!trimmedValue) return
+    if (!trimmedValue) {
+      setShowModal(true)
+
+      return
+    }
 
     const newTodo: Todo = {
       id: Date.now().toString(),
@@ -28,6 +34,10 @@ const Todos = () => {
 
     setTodos([...todos, newTodo])
     setValue('')
+
+    if (inputRef.current) {
+      inputRef.current.focus()
+    }
   }
 
   const handleUpdate = (updated: {
@@ -54,6 +64,7 @@ const Todos = () => {
               할 일
             </label>
             <input
+              ref={inputRef}
               onChange={handleChange}
               value={value}
               type="text"
@@ -80,6 +91,10 @@ const Todos = () => {
           />
         ))}
       </ul>
+
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)}>할 일을 작성해주세요.</Modal>
+      )}
     </div>
   )
 }
