@@ -25,7 +25,9 @@ const AuthForm = ({ legend, children, type, value }: AuthFormProps) => {
       try {
         if (value) {
           const accessToken = await authService.signIn(value)
-          console.log('Access Token:', accessToken)
+          localStorage.setItem('accessToken', accessToken)
+
+          navigate('/todo')
         }
       } catch (error: any) {
         openModal(makeModalContent('auth', error.response.status))
