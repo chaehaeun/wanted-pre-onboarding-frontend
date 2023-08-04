@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const useIsLoggedIn = () => {
-  const isLogin = useGetToken()
+  const { isLogin } = useGetToken()
   const navigate = useNavigate()
 
   useEffect(() => {

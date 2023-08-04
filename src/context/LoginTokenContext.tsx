@@ -24,5 +24,5 @@ export function useGetToken() {
 
   const isLogin = !!token
 
-  return isLogin
+  return { isLogin, token }
 }
