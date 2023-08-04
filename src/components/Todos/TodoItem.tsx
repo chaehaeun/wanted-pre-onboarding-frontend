@@ -49,7 +49,7 @@ const TodoItem = ({
   const renderViewMode = () => (
     <>
       <input
-        className="relative w-5 h-5 mr-3 bg-white border-2 border-black appearance-none cursor-pointer shadow-wrap-sm checked:bg-teal-500 after:absolute  checked:after:content-['✓'] after:w-5 after:h-5 after:block after:-top-1 after:left-0.5 shrink-0"
+        className="relative w-5 h-5 mr-3 bg-white border-2 border-black appearance-none cursor-pointer shadow-wrap-sm checked:bg-teal-500 after:absolute  checked:after:content-['✓'] after:w-5 after:h-5 after:block after:-top-1 after:left-[1px] shrink-0"
         type="checkbox"
         id={`checkbox-${id}`}
         onChange={handleCheckBox}
@@ -86,6 +86,7 @@ const TodoItem = ({
         <input
           className="w-full border-b-2 border-black"
           type="text"
+          data-testid="modify-input"
           value={todoText}
           id={id}
           onChange={handleChanges}
@@ -93,7 +94,7 @@ const TodoItem = ({
       </div>
       <Button
         type="button"
-        dataTestId="modify-button"
+        dataTestId="submit-button"
         onClick={handleConfirm}
         mode="edit"
       >
@@ -101,7 +102,7 @@ const TodoItem = ({
       </Button>
       <Button
         type="button"
-        dataTestId="delete-button"
+        dataTestId="cancel-button"
         mode="delete"
         onClick={handleCancel}
       >

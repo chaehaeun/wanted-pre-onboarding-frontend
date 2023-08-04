@@ -6,6 +6,8 @@ type DataTestId =
   | 'new-todo-add-button'
   | 'modify-button'
   | 'delete-button'
+  | 'submit-button'
+  | 'cancel-button'
 
 interface ButtonProps {
   type: 'button' | 'submit' | 'reset'

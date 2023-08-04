@@ -72,6 +72,7 @@ const Todos = () => {
               type="text"
               id="todo"
               placeholder="할 일을 추가해주세요."
+              data-testid="new-todo-input"
               className="flex-grow px-2 py-2 border-2 border-black focus:outline-none"
             />
             <Button mode="add" type="submit" dataTestId={'new-todo-add-button'}>
