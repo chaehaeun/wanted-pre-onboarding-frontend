@@ -49,13 +49,13 @@ const TodoItem = ({
   const renderViewMode = () => (
     <>
       <input
-        className="relative w-5 h-5 mr-3 bg-white border-2 border-black appearance-none cursor-pointer shadow-wrap-sm checked:bg-teal-500 after:absolute  checked:after:content-['✓'] after:w-5 after:h-5 after:block after:-top-1 after:left-0 shrink-0"
+        className="relative w-5 h-5 mr-3 bg-white border-2 border-black appearance-none cursor-pointer shadow-wrap-sm checked:bg-teal-500 after:absolute  checked:after:content-['✓'] after:w-5 after:h-5 after:block after:-top-1 after:left-0.5 shrink-0"
         type="checkbox"
-        id={id}
+        id={`checkbox-${id}`}
         onChange={handleCheckBox}
         checked={isCompleted}
       />
-      <label className="flex-grow mt-1" htmlFor={id}>
+      <label className="flex-grow mt-1" htmlFor={`checkbox-${id}`}>
         {todo}
       </label>
       <Button
