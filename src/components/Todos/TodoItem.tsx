@@ -33,9 +33,9 @@ const TodoItem = ({
     setTodoText(todo)
   }
 
-  const hableUpdate = () => {
-    setIsEditing(false)
+  const handleConfirm = () => {
     onUpdate({ id, text: todoText, status: isCompleted })
+    setIsEditing(false)
   }
 
   const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,69 +46,73 @@ const TodoItem = ({
     onDelete(id)
   }
 
+  const renderViewMode = () => (
+    <>
+      <input
+        className="relative w-5 h-5 mr-3 bg-white border-2 border-black appearance-none cursor-pointer shadow-wrap-sm checked:bg-teal-500 after:absolute  checked:after:content-['✓'] after:w-5 after:h-5 after:block after:-top-1 after:left-0 shrink-0"
+        type="checkbox"
+        id={id}
+        onChange={handleCheckBox}
+        checked={isCompleted}
+      />
+      <label className="flex-grow mt-1" htmlFor={id}>
+        {todo}
+      </label>
+      <Button
+        type="button"
+        dataTestId="modify-button"
+        mode="edit"
+        onClick={handleEdit}
+      >
+        수정
+      </Button>
+      <Button
+        onClick={handleDelete}
+        type="button"
+        dataTestId="delete-button"
+        mode="delete"
+      >
+        삭제
+      </Button>
+    </>
+  )
+
+  const renderEditMode = () => (
+    <>
+      <div className="flex-grow">
+        <label className="sr-only" htmlFor={id}>
+          할 일
+        </label>
+        <input
+          className="w-full border-b-2 border-black"
+          type="text"
+          value={todoText}
+          id={id}
+          onChange={handleChanges}
+        />
+      </div>
+      <Button
+        type="button"
+        dataTestId="modify-button"
+        onClick={handleConfirm}
+        mode="edit"
+      >
+        확인
+      </Button>
+      <Button
+        type="button"
+        dataTestId="delete-button"
+        mode="delete"
+        onClick={handleCancel}
+      >
+        취소
+      </Button>
+    </>
+  )
+
   return (
     <li className="flex items-center w-full gap-3 px-2">
-      {!isEditing ? (
-        <>
-          <input
-            className="relative w-5 h-5 mr-3 bg-white border-2 border-black appearance-none cursor-pointer shadow-wrap-sm checked:bg-teal-500 after:absolute  checked:after:content-['✓'] after:w-5 after:h-5 after:block after:-top-1 after:left-0"
-            type="checkbox"
-            id={id}
-            onChange={handleCheckBox}
-            checked={isCompleted}
-          />
-          <label className="flex-grow mt-1" htmlFor={id}>
-            {todo}
-          </label>
-          <Button
-            type="button"
-            dataTestId="modify-button"
-            mode="edit"
-            onClick={handleEdit}
-          >
-            수정
-          </Button>
-          <Button
-            onClick={handleDelete}
-            type="button"
-            dataTestId="delete-button"
-            mode="delete"
-          >
-            삭제
-          </Button>
-        </>
-      ) : (
-        <>
-          <div className="flex-grow">
-            <label className="sr-only" htmlFor={id}>
-              할 일
-            </label>
-            <input
-              className="w-full border-b-2 border-black"
-              type="text"
-              value={todoText}
-              id={id}
-              onChange={handleChanges}
-            />
-          </div>
-          <Button
-            type="button"
-            dataTestId="modify-button"
-            onClick={hableUpdate}
-            mode="edit"
-          >
-            확인
-          </Button>
-          <Button
-            type="button"
-            dataTestId="delete-button"
-            mode="delete"
-            onClick={handleCancel}
-          >
-            취소
-          </Button>
-        </>
-      )}
+      {!isEditing ? renderViewMode() : renderEditMode()}
     </li>
   )
 }
