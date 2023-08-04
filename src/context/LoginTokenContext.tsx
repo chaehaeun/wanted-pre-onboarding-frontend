@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 
 interface LoginTokenContextProps {
   children: React.ReactNode
@@ -18,3 +18,11 @@ const LoginTokenContextProvider = ({ children }: LoginTokenContextProps) => {
 }
 
 export default LoginTokenContextProvider
+
+export function useGetToken() {
+  const token = useContext(LoginTokenContext)
+
+  const isLogin = !!token
+
+  return isLogin
+}

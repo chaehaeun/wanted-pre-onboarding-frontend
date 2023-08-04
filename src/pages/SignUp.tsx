@@ -1,8 +1,9 @@
 import { AuthForm, AuthInput, Button, Title } from 'components'
-import { useAuthForm } from 'hooks'
+import { useAuthForm, useIsLoggedIn } from 'hooks'
 
 const SignUp = () => {
   const { isValid, handleValidState, combineValue, value } = useAuthForm()
+  useIsLoggedIn()
 
   return (
     <div>

@@ -1,7 +1,9 @@
 import { Title, Todos } from 'components'
-import React from 'react'
+import { useIsLoggedIn } from 'hooks'
 
 const Todo = () => {
+  useIsLoggedIn()
+
   return (
     <div>
       <Title>ToDo List</Title>

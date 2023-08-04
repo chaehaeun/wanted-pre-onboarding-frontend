@@ -1,7 +1,9 @@
-import React from 'react'
+import { useIsLoggedIn } from 'hooks'
 
 const Home = () => {
-  return <div>Home</div>
+  useIsLoggedIn()
+
+  return <></>
 }
 
 export default Home
