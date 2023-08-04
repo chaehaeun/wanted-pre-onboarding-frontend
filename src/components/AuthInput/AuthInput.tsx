@@ -8,6 +8,7 @@ interface AuthInputProps {
   type: 'email' | 'password'
   dataTestId: 'email-input' | 'password-input'
   handleValidState: (type: string, isValid: boolean) => void
+  combineValue: (type: string, value: string) => void
 }
 
 const AuthInput = ({
@@ -17,6 +18,7 @@ const AuthInput = ({
   type,
   dataTestId,
   handleValidState,
+  combineValue,
 }: AuthInputProps) => {
   const [value, setValue] = useState('')
   const debouncedValue = useDebounce(value, 300)
@@ -47,7 +49,8 @@ const AuthInput = ({
     setIsValid(isValid)
     handleValidState(type, isValid)
     setErrorText(errorText)
-  }, [debouncedValue, type, isFirstInput, handleValidState])
+    combineValue(type, debouncedValue)
+  }, [debouncedValue, type, isFirstInput, handleValidState, combineValue])
 
   return (
     <div className="relative flex flex-col">
