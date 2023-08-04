@@ -1,41 +1,42 @@
 import { axiosInstance } from 'api/index'
 
-interface Todo {
-  id: string
-  todo: string
-  isCompleted: boolean
-}
-
 class TodoService {
-  async createTodo(todo: Todo, token: string | null) {
-    const body = {
-      id: todo.id,
-      todo: todo.todo,
-      isCompleted: todo.isCompleted,
-    }
+  async createTodo(todo: string, token: string | null) {
     try {
       if (!token) {
-        throw new Error('No token')
+        throw new Error('토큰이 존재하지 않습니다.')
       }
-      await axiosInstance.post('/todos', body, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await axiosInstance.post(
+        '/todos',
+        { todo },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
         },
-      })
+      )
+
+      return response.data
     } catch (error) {
       throw error
     }
   }
+
   async getTodos(token: string | null) {
     try {
       if (!token) {
-        throw new Error('No token')
+        throw new Error('토큰이 존재하지 않습니다.')
       }
       const response = await axiosInstance.get('/todos', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
+
+      if (response.status === 204 || !response.data) {
+        return []
+      }
 
       return response.data
     } catch (error) {
@@ -55,10 +56,11 @@ class TodoService {
     }
     const url = `/todos/${id}`
     if (!token) {
-      throw new Error('No token')
+      throw new Error('토큰이 존재하지 않습니다.')
     }
 
     try {
+      console.log('통신 요청 들어감')
       await axiosInstance.put(url, body, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -72,7 +74,7 @@ class TodoService {
   async deleteTodo(id: string, token: string | null) {
     const url = `/todos/${id}`
     if (!token) {
-      throw new Error('No token')
+      throw new Error('토큰이 존재하지 않습니다.')
     }
 
     try {

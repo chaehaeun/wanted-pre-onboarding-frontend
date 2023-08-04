@@ -42,15 +42,11 @@ const Todos = () => {
 
       return
     }
-    const newTodo: Todo = {
-      id: Date.now().toString(),
-      todo: trimmedValue,
-      isCompleted: false,
-    }
 
     try {
-      await todoService.createTodo(newTodo, storedToken)
-      setTodos(prev => [...prev, newTodo])
+      const response = await todoService.createTodo(trimmedValue, storedToken)
+
+      setTodos(prev => [...prev, response])
       setValue('')
     } catch (error: any) {
       openModal('할 일 추가에 실패했습니다.')
@@ -61,22 +57,33 @@ const Todos = () => {
     }
   }
 
+  // ...
+
   const handleUpdate = async (
     id: string,
-    todo: string,
-    isCompleted: boolean,
+    newTodo: string,
+    newIsCompleted: boolean,
   ) => {
-    const prevTodos = [...todos]
-    setTodos(prev =>
-      prev.map(item =>
-        item.id === id ? { ...item, todo, isCompleted } : item,
-      ),
-    )
+    const currentTodo = todos.find(todo => todo.id === id)
+
+    if (
+      currentTodo &&
+      currentTodo.todo === newTodo &&
+      currentTodo.isCompleted === newIsCompleted
+    ) {
+      return
+    }
 
     try {
-      await todoService.updateTodo(id, todo, isCompleted, storedToken)
+      await todoService.updateTodo(id, newTodo, newIsCompleted, storedToken)
+      setTodos(prev =>
+        prev.map(item =>
+          item.id === id
+            ? { ...item, todo: newTodo, isCompleted: newIsCompleted }
+            : item,
+        ),
+      )
     } catch (error) {
-      setTodos(prevTodos)
       openModal('할 일 수정에 실패했습니다.')
     }
   }
