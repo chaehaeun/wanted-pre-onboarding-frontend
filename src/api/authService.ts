@@ -15,7 +15,6 @@ class AuthService {
     try {
       await axiosInstance.post('/auth/signup', data)
     } catch (error) {
-      console.error('SignUp Error:', error)
       throw error
     }
   }
@@ -26,7 +25,6 @@ class AuthService {
 
       return response.data.access_token
     } catch (error) {
-      console.error('SignIn Error:', error)
       throw error
     }
   }
