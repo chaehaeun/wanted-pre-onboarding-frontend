@@ -15,10 +15,11 @@ const Todos = () => {
   const [value, setValue] = useState('')
   const { showModal, content, openModal, closeModal } = useModal()
   const inputRef = useRef<HTMLInputElement | null>(null)
-  const storedToken = useAuth()
+  const { token: storedToken } = useAuth()
 
   useEffect(() => {
     const fetchTodos = async () => {
+      if (!storedToken) return
       try {
         const fetchedTodos = await todoService.getTodos(storedToken)
         setTodos(fetchedTodos)

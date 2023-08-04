@@ -4,6 +4,7 @@ import React from 'react'
 import { useModal } from 'hooks'
 import { makeModalContent } from 'utils'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from 'context/AuthContext'
 
 interface AuthFormProps {
   legend: string
@@ -18,6 +19,7 @@ interface AuthFormProps {
 const AuthForm = ({ legend, children, type, value }: AuthFormProps) => {
   const navigate = useNavigate()
   const { showModal, content, openModal, closeModal } = useModal()
+  const { setToken } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -26,6 +28,7 @@ const AuthForm = ({ legend, children, type, value }: AuthFormProps) => {
         if (value) {
           const accessToken = await authService.signIn(value)
           localStorage.setItem('accessToken', accessToken)
+          setToken(accessToken)
 
           navigate('/todo')
         }
