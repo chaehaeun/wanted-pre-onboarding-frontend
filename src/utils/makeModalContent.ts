@@ -12,6 +12,8 @@ const makeModalContent = (type: string, status: number) => {
       case 404:
         content = '등록되지 않은 회원입니다!'
         break
+      default:
+        content = '알 수 없는 오류가 발생했습니다!'
     }
   }
 
