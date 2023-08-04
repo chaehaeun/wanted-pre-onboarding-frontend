@@ -2,12 +2,12 @@ import { AuthForm, AuthInput, Button, Title } from 'components'
 import { useAuthForm } from 'hooks'
 
 const SignIn = () => {
-  const { isValid, handleValidState } = useAuthForm()
+  const { isValid, handleValidState, combineValue, value } = useAuthForm()
 
   return (
     <div>
       <Title>로그인</Title>
-      <AuthForm legend={'로그인 폼'} type="signin">
+      <AuthForm legend={'로그인 폼'} type="signin" value={value}>
         <AuthInput
           id={'signinEmail'}
           label={'Email'}
@@ -15,6 +15,7 @@ const SignIn = () => {
           type={'email'}
           dataTestId={'email-input'}
           handleValidState={handleValidState}
+          combineValue={combineValue}
         />
         <AuthInput
           id={'signinPassword'}
@@ -23,6 +24,7 @@ const SignIn = () => {
           type={'password'}
           dataTestId={'password-input'}
           handleValidState={handleValidState}
+          combineValue={combineValue}
         />
         <Button
           type="submit"
