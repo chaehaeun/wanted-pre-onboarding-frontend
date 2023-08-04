@@ -58,8 +58,6 @@ const Todos = () => {
     }
   }
 
-  // ...
-
   const handleUpdate = async (
     id: string,
     newTodo: string,
