@@ -60,7 +60,6 @@ class TodoService {
     }
 
     try {
-      console.log('통신 요청 들어감')
       await axiosInstance.put(url, body, {
         headers: {
           Authorization: `Bearer ${token}`,
