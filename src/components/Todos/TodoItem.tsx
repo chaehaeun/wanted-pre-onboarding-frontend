@@ -5,7 +5,7 @@ interface TodoItemProps {
   id: string
   todo: string
   isComplete: boolean
-  onUpdate: (updated: { id: string; text: string; status: boolean }) => void
+  onUpdate: (id: string, todo: string, isCompleted: boolean) => void
   onDelete: (id: string) => void
 }
 
@@ -16,25 +16,28 @@ const TodoItem = ({
   onUpdate,
   onDelete,
 }: TodoItemProps) => {
-  const [isCompleted, setIsCompleted] = useState(isComplete)
+  const [isChecked, setIsChecked] = useState(isComplete)
   const [isEditing, setIsEditing] = useState(false)
   const [todoText, setTodoText] = useState(todo)
+  const [initialTodoText, setInitialTodoText] = useState(todo)
 
   const handleCheckBox = () => {
-    setIsCompleted(prev => !prev)
+    setIsChecked(prev => !prev)
+    onUpdate(id, todoText, !isChecked)
   }
 
   const handleEdit = () => {
     setIsEditing(true)
+    setInitialTodoText(todoText)
   }
 
   const handleCancel = () => {
     setIsEditing(false)
-    setTodoText(todo)
+    setTodoText(initialTodoText)
   }
 
   const handleConfirm = () => {
-    onUpdate({ id, text: todoText, status: isCompleted })
+    onUpdate(id, todoText, isChecked)
     setIsEditing(false)
   }
 
@@ -53,7 +56,7 @@ const TodoItem = ({
         type="checkbox"
         id={`checkbox-${id}`}
         onChange={handleCheckBox}
-        checked={isCompleted}
+        checked={isChecked}
       />
       <label className="flex-grow mt-1" htmlFor={`checkbox-${id}`}>
         {todo}

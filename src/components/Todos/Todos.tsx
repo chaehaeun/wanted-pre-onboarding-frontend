@@ -1,25 +1,40 @@
 import { Button, Modal, TodoItem } from 'components'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useModal } from 'hooks'
+import { todoService } from 'api'
+import { useAuth } from 'context/AuthContext'
 
 interface Todo {
   id: string
-  text: string
-  status: boolean
+  todo: string
+  isCompleted: boolean
 }
 
 const Todos = () => {
   const [todos, setTodos] = useState<Todo[]>([])
   const [value, setValue] = useState('')
   const { showModal, content, openModal, closeModal } = useModal()
-  // const [showModal, setShowModal] = useState(false)
   const inputRef = useRef<HTMLInputElement | null>(null)
+  const storedToken = useAuth()
+
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const fetchedTodos = await todoService.getTodos(storedToken)
+        setTodos(fetchedTodos)
+      } catch (error) {
+        openModal('할 일을 불러오는데 실패했습니다.')
+      }
+    }
+
+    fetchTodos()
+  }, [storedToken, openModal])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const trimmedValue = value.trim()
     if (!trimmedValue) {
@@ -27,33 +42,52 @@ const Todos = () => {
 
       return
     }
-
     const newTodo: Todo = {
       id: Date.now().toString(),
-      text: trimmedValue,
-      status: false,
+      todo: trimmedValue,
+      isCompleted: false,
     }
 
-    setTodos([...todos, newTodo])
-    setValue('')
+    try {
+      await todoService.createTodo(newTodo, storedToken)
+      setTodos(prev => [...prev, newTodo])
+      setValue('')
+    } catch (error: any) {
+      openModal('할 일 추가에 실패했습니다.')
+    }
 
     if (inputRef.current) {
       inputRef.current.focus()
     }
   }
 
-  const handleUpdate = (updated: {
-    id: string
-    text: string
-    status: boolean
-  }) => {
+  const handleUpdate = async (
+    id: string,
+    todo: string,
+    isCompleted: boolean,
+  ) => {
+    const prevTodos = [...todos]
     setTodos(prev =>
-      prev.map(todo => (todo.id === updated.id ? updated : todo)),
+      prev.map(item =>
+        item.id === id ? { ...item, todo, isCompleted } : item,
+      ),
     )
+
+    try {
+      await todoService.updateTodo(id, todo, isCompleted, storedToken)
+    } catch (error) {
+      setTodos(prevTodos)
+      openModal('할 일 수정에 실패했습니다.')
+    }
   }
 
-  const handleDelete = (id: string) => {
-    setTodos(prev => prev.filter(todo => todo.id !== id))
+  const handleDelete = async (id: string) => {
+    try {
+      await todoService.deleteTodo(id, storedToken)
+      setTodos(prev => prev.filter(todo => todo.id !== id))
+    } catch (error) {
+      openModal('할 일 삭제에 실패했습니다.')
+    }
   }
 
   return (
@@ -87,8 +121,8 @@ const Todos = () => {
           <TodoItem
             key={todo.id}
             id={todo.id}
-            todo={todo.text}
-            isComplete={todo.status}
+            todo={todo.todo}
+            isComplete={todo.isCompleted}
             onUpdate={handleUpdate}
             onDelete={handleDelete}
           />
