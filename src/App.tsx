@@ -1,5 +1,4 @@
 import { RootLayout } from 'components'
-import { LoginTokenContextProvider } from 'context'
 import { Home, SignIn, SignUp, Error, Todo } from 'pages'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
@@ -30,11 +29,7 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-  return (
-    <LoginTokenContextProvider>
-      <RouterProvider router={router} />
-    </LoginTokenContextProvider>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App
