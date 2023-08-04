@@ -66,12 +66,11 @@ const Todos = () => {
     const currentTodo = todos.find(todo => todo.id === id)
 
     if (
-      currentTodo &&
-      currentTodo.todo === newTodo &&
-      currentTodo.isCompleted === newIsCompleted
-    ) {
+      !currentTodo ||
+      (currentTodo.todo === newTodo &&
+        currentTodo.isCompleted === newIsCompleted)
+    )
       return
-    }
 
     try {
       await todoService.updateTodo(id, newTodo, newIsCompleted, storedToken)
