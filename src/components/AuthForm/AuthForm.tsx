@@ -2,6 +2,8 @@ import { authService } from 'api'
 import Modal from 'components/Modal/Modal'
 import React from 'react'
 import { useModal } from 'hooks'
+import { makeModalContent } from 'utils'
+import { useNavigate } from 'react-router-dom'
 
 interface AuthFormProps {
   legend: string
@@ -14,6 +16,7 @@ interface AuthFormProps {
 }
 
 const AuthForm = ({ legend, children, type, value }: AuthFormProps) => {
+  const navigate = useNavigate()
   const { showModal, content, openModal, closeModal } = useModal()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,20 +26,19 @@ const AuthForm = ({ legend, children, type, value }: AuthFormProps) => {
         if (value) {
           const accessToken = await authService.signIn(value)
           console.log('Access Token:', accessToken)
-          console.log('로그인 폼 제출 성공!')
         }
-      } catch (error) {
-        console.error('SignIn Error:', error)
+      } catch (error: any) {
+        openModal(makeModalContent('auth', error.response.status))
       }
     }
     if (type === 'signup') {
       try {
         if (value) {
           await authService.signUp(value)
-          console.log('회원가입 폼 제출 성공!')
+          navigate('/signin')
         }
-      } catch (error) {
-        console.error('SignUp Error:', error)
+      } catch (error: any) {
+        openModal(makeModalContent('auth', error.response.status))
       }
     }
   }
