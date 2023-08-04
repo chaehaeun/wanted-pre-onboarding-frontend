@@ -6,6 +6,10 @@ const useAuthForm = () => {
     password: false,
   })
   const [isValid, setIsValid] = useState(false)
+  const [value, setValue] = useState({
+    email: '',
+    password: '',
+  })
 
   useEffect(() => {
     if (validState.email && validState.password) {
@@ -19,7 +23,11 @@ const useAuthForm = () => {
     setValidState(prev => ({ ...prev, [type]: isValid }))
   }, [])
 
-  return { isValid, handleValidState }
+  const combineValue = useCallback((type: string, value: string) => {
+    setValue(prev => ({ ...prev, [type]: value }))
+  }, [])
+
+  return { isValid, handleValidState, combineValue, value }
 }
 
 export default useAuthForm
