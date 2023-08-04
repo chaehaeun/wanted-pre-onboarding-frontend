@@ -1,5 +1,6 @@
 import { Button, Modal, TodoItem } from 'components'
 import React, { useRef, useState } from 'react'
+import { useModal } from 'hooks'
 
 interface Todo {
   id: string
@@ -10,7 +11,8 @@ interface Todo {
 const Todos = () => {
   const [todos, setTodos] = useState<Todo[]>([])
   const [value, setValue] = useState('')
-  const [showModal, setShowModal] = useState(false)
+  const { showModal, content, openModal, closeModal } = useModal()
+  // const [showModal, setShowModal] = useState(false)
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +23,7 @@ const Todos = () => {
     e.preventDefault()
     const trimmedValue = value.trim()
     if (!trimmedValue) {
-      setShowModal(true)
+      openModal('할 일을 작성해주세요.')
 
       return
     }
@@ -92,9 +94,7 @@ const Todos = () => {
         ))}
       </ul>
 
-      {showModal && (
-        <Modal onClose={() => setShowModal(false)}>할 일을 작성해주세요.</Modal>
-      )}
+      {showModal && <Modal onClose={closeModal}>{content}</Modal>}
     </div>
   )
 }
