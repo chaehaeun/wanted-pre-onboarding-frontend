@@ -1,14 +1,16 @@
 import React from 'react'
 
-interface AuthButtonProps {
+type DataTestId =
+  | 'signup-button'
+  | 'signin-button'
+  | 'new-todo-add-button'
+  | 'modify-button'
+  | 'delete-button'
+
+interface ButtonProps {
   type: 'button' | 'submit' | 'reset'
   children: React.ReactNode
-  dataTestId:
-    | 'signup-button'
-    | 'signin-button'
-    | 'new-todo-add-button'
-    | 'modify-button'
-    | 'delete-button'
+  dataTestId: DataTestId
   onClick?: () => void
   mode?: 'auth' | 'cancel' | 'add' | 'edit' | 'delete'
   isValid?: boolean
@@ -23,7 +25,7 @@ const Button = ({
   mode,
   isValid,
   dataTestId,
-}: AuthButtonProps) => {
+}: ButtonProps) => {
   switch (mode) {
     case 'auth':
       className =
@@ -39,7 +41,7 @@ const Button = ({
       break
     case 'delete':
       className =
-        'px-2 py-1 ml-1 bg-gray-400 border-2 border-black cursor-pointer shrink-0 shadow-wrap-sm hover:bg-rose-600'
+        'px-2 py-1 bg-gray-400 border-2 border-black cursor-pointer shrink-0 shadow-wrap-sm hover:bg-rose-600'
       break
   }
 

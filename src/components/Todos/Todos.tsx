@@ -30,6 +30,20 @@ const Todos = () => {
     setValue('')
   }
 
+  const handleUpdate = (updated: {
+    id: string
+    text: string
+    status: boolean
+  }) => {
+    setTodos(prev =>
+      prev.map(todo => (todo.id === updated.id ? updated : todo)),
+    )
+  }
+
+  const handleDelete = (id: string) => {
+    setTodos(prev => prev.filter(todo => todo.id !== id))
+  }
+
   return (
     <div className="w-4/5 mx-auto">
       <form className="w-full" onSubmit={handleSubmit}>
@@ -61,6 +75,8 @@ const Todos = () => {
             id={todo.id}
             todo={todo.text}
             isComplete={todo.status}
+            onUpdate={handleUpdate}
+            onDelete={handleDelete}
           />
         ))}
       </ul>
