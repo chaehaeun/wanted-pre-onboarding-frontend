@@ -31,6 +31,5 @@ npm start
 
 ## 데모 영상
 
-데모 영상
-
 배포 주소
+https://chae-wanted-preonboarding.netlify.app/
