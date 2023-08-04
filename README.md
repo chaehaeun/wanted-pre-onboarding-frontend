@@ -32,4 +32,4 @@ npm start
 ## 데모 영상
 
 배포 주소
-https://chae-wanted-preonboarding.netlify.app/
+https://wanted-pre-onboarding-frontend-eight-alpha.vercel.app/todo
