@@ -24,7 +24,6 @@ const Error = () => {
 
   return (
     <div>
-      <Header />
       <div className="flex flex-col items-center w-full ">
         <h2 className="mb-2 text-3xl font-bold mt-7">page not found!</h2>
         <p>{count}초 뒤 메인 페이지로 이동합니다.</p>
