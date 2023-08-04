@@ -1,17 +1,12 @@
 import { axiosInstance } from 'api/index'
 
-interface SignUpData {
-  email: string
-  password: string
-}
-
-interface SignInData {
+interface AuthData {
   email: string
   password: string
 }
 
 class AuthService {
-  async signUp(data: SignUpData): Promise<void> {
+  async signUp(data: AuthData): Promise<void> {
     try {
       await axiosInstance.post('/auth/signup', data)
     } catch (error) {
@@ -19,7 +14,7 @@ class AuthService {
     }
   }
 
-  async signIn(data: SignInData): Promise<string> {
+  async signIn(data: AuthData): Promise<string> {
     try {
       const response = await axiosInstance.post('/auth/signin', data)
 
