@@ -58,7 +58,7 @@ const TodoItem = ({
         onChange={handleCheckBox}
         checked={isChecked}
       />
-      <label className="flex-grow mt-1" htmlFor={`checkbox-${id}`}>
+      <label className="flex-grow mt-1 todo-label" htmlFor={`checkbox-${id}`}>
         {todo}
       </label>
       <Button

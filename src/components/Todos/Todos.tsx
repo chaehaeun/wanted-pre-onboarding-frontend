@@ -121,7 +121,7 @@ const Todos = () => {
         </fieldset>
       </form>
 
-      <ul className="flex flex-col w-full gap-4 overflow-y-scroll mt-7 max-h-96">
+      <ul className="flex flex-col gap-4 overflow-y-auto mt-7 max-h-96">
         {todos.map(todo => (
           <TodoItem
             key={todo.id}
