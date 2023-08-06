@@ -1,4 +1,5 @@
 import { AuthForm, AuthInput, Button, Title } from 'components'
+import { useAuth } from 'context/AuthContext'
 import { useAuthForm } from 'hooks'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -6,13 +7,13 @@ import { useNavigate } from 'react-router-dom'
 const SignUp = () => {
   const { isValid, handleValidState, combineValue, value } = useAuthForm()
   const navigate = useNavigate()
+  const { token } = useAuth()
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken')
     if (token) {
       navigate('/todo')
     }
-  }, [navigate])
+  }, [navigate, token])
 
   return (
     <div>
