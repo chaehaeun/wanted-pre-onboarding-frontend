@@ -7,6 +7,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
+    errorElement: <Error />,
     children: [
       {
         index: true,
@@ -23,10 +24,6 @@ const router = createBrowserRouter([
       {
         path: '/todo',
         element: <Todo />,
-      },
-      {
-        path: '*',
-        element: <Error />,
       },
     ],
   },
