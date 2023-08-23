@@ -20,15 +20,18 @@ const AuthInput = ({
   handleValidState,
   combineValue,
 }: AuthInputProps) => {
+  // 입력 값과 디바운스 된 입력 값을 관리하는 상태
   const [value, setValue] = useState('')
   const debouncedValue = useDebounce(value, 300)
-
+  // 유효성 검사 결과와 에러 텍스트 관리하는 상태
   const [isValid, setIsValid] = useState(false)
   const [errorText, setErrorText] = useState('')
+  // 첫 번째 입력 여부를 관리하는 상태
   const [isFirstInput, setIsFirstInput] = useState(false)
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
+    //첫 번째 입력 이후부터 유효성 검사 및 에러 텍스트 렌더링이 시작
     setIsFirstInput(true)
   }
 
@@ -46,10 +49,11 @@ const AuthInput = ({
       errorText = isValid ? '' : '비밀번호는 8자 이상이어야 합니다.'
     }
 
+    // 상태 업데이트 및 외부로 유효성 정보 전달
     setIsValid(isValid)
-    handleValidState(type, isValid)
     setErrorText(errorText)
-    combineValue(type, debouncedValue)
+    handleValidState(type, isValid) // 페이지 컴포넌트로 유효성 정보 전달
+    combineValue(type, debouncedValue) // 페이지 컴포넌트로 각 인풋 입력 값 전달
   }, [debouncedValue, type, isFirstInput, handleValidState, combineValue])
 
   return (

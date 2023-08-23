@@ -10,6 +10,7 @@ interface ModalOverlayProps {
   onClose: () => void
 }
 
+// 모달 컴포넌트의 속성을 정의하는 인터페이스
 interface ModalProps extends BackdropProps, ModalOverlayProps {}
 
 const Backdrop = ({ onClose }: BackdropProps) => {
@@ -38,6 +39,7 @@ const ModalOverlay = ({ children, onClose }: ModalOverlayProps) => {
   )
 }
 
+// 모달을 렌더링하기 위한 포털 요소
 const portalElement: HTMLElement | null = document.getElementById('overlays')
 
 const Modal = ({ onClose, children }: ModalProps) => {

@@ -11,12 +11,16 @@ interface Todo {
 }
 
 const Todos = () => {
+  // 할 일 목록 상태 및 입력 값 상태 관리
   const [todos, setTodos] = useState<Todo[]>([])
   const [value, setValue] = useState('')
+  // 모달 관련 상태와 함수를 사용하는 훅
   const { showModal, content, openModal, closeModal } = useModal()
+  // 입력 필드에 대한 참조
   const inputRef = useRef<HTMLInputElement | null>(null)
   const { token: storedToken } = useAuth()
 
+  // 컴포넌트가 마운트되면 할 일 목록을 가져옴
   useEffect(() => {
     const fetchTodos = async () => {
       if (!storedToken) return
@@ -63,8 +67,9 @@ const Todos = () => {
     newTodo: string,
     newIsCompleted: boolean,
   ) => {
+    // 현재 수정하려는 할 일 아이템을 찾음
     const currentTodo = todos.find(todo => todo.id === id)
-
+    // 현재 할 일이 존재하지 않거나 변경사항이 없다면 함수를 종료
     if (
       !currentTodo ||
       (currentTodo.todo === newTodo &&
@@ -74,6 +79,7 @@ const Todos = () => {
 
     try {
       await todoService.updateTodo(id, newTodo, newIsCompleted, storedToken)
+      // 업데이트 성공 시, 할 일 목록을 업데이트
       setTodos(prev =>
         prev.map(item =>
           item.id === id
