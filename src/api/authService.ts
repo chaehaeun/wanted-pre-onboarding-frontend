@@ -6,11 +6,11 @@ interface AuthData {
 }
 
 class AuthService {
-  async signUp(data: AuthData): Promise<void> {
+  signUp = async (data: AuthData): Promise<void> => {
     return await axiosInstance.post('/auth/signup', data)
   }
 
-  async signIn(data: AuthData): Promise<string> {
+  signIn = async (data: AuthData): Promise<string> => {
     const response = await axiosInstance.post('/auth/signin', data)
 
     return response.data.access_token
