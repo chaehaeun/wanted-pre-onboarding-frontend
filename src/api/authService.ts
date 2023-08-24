@@ -7,21 +7,13 @@ interface AuthData {
 
 class AuthService {
   async signUp(data: AuthData): Promise<void> {
-    try {
-      await axiosInstance.post('/auth/signup', data)
-    } catch (error) {
-      throw error
-    }
+    return await axiosInstance.post('/auth/signup', data)
   }
 
   async signIn(data: AuthData): Promise<string> {
-    try {
-      const response = await axiosInstance.post('/auth/signin', data)
+    const response = await axiosInstance.post('/auth/signin', data)
 
-      return response.data.access_token
-    } catch (error) {
-      throw error
-    }
+    return response.data.access_token
   }
 }
 
