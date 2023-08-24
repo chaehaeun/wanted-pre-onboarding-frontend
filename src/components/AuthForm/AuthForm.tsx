@@ -19,35 +19,36 @@ interface AuthFormProps {
 const AuthForm = ({ legend, children, type, value }: AuthFormProps) => {
   const navigate = useNavigate()
   const { showModal, content, openModal, closeModal } = useModal()
-  // 인증 관련 상태와 함수를 사용하는 컨텍스트 훅
   const { setToken } = useAuth()
+
+  const handleSignIn = async () => {
+    try {
+      if (value) {
+        const accessToken = await authService.signIn(value)
+        localStorage.setItem('accessToken', accessToken)
+        setToken(accessToken)
+
+        navigate('/todo')
+      }
+    } catch (error: any) {
+      openModal(makeModalContent('auth', error.response.status))
+    }
+  }
+
+  const handleSignUp = async () => {
+    try {
+      if (value) {
+        await authService.signUp(value)
+        navigate('/signin')
+      }
+    } catch (error: any) {
+      openModal(makeModalContent('auth', error.response.status))
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (type === 'signin') {
-      try {
-        if (value) {
-          const accessToken = await authService.signIn(value)
-          localStorage.setItem('accessToken', accessToken)
-          setToken(accessToken)
-
-          navigate('/todo')
-        }
-      } catch (error: any) {
-        // 오류 발생 시 모달로 오류 내용 표시, 오류 내용은 makeModalContent에서 정의
-        openModal(makeModalContent('auth', error.response.status))
-      }
-    }
-    if (type === 'signup') {
-      try {
-        if (value) {
-          await authService.signUp(value)
-          navigate('/signin')
-        }
-      } catch (error: any) {
-        openModal(makeModalContent('auth', error.response.status))
-      }
-    }
+    type === 'signin' ? handleSignIn() : handleSignUp()
   }
 
   return (
