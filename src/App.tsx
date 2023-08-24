@@ -1,29 +1,35 @@
+import { Suspense, lazy } from 'react'
 import { RootLayout } from 'components'
 import { AuthProvider } from 'context/AuthContext'
-import { Home, SignIn, SignUp, Error, Todo } from 'pages'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+
+const LazyHome = lazy(() => import('pages/Home'))
+const LazySignIn = lazy(() => import('pages/SignIn'))
+const LazySignUp = lazy(() => import('pages/SignUp'))
+const LazyError = lazy(() => import('pages/Error'))
+const LazyTodo = lazy(() => import('pages/Todo'))
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
-    errorElement: <Error />,
+    errorElement: <LazyError />,
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <LazyHome />,
       },
       {
         path: '/signin',
-        element: <SignIn />,
+        element: <LazySignIn />,
       },
       {
         path: '/signup',
-        element: <SignUp />,
+        element: <LazySignUp />,
       },
       {
         path: '/todo',
-        element: <Todo />,
+        element: <LazyTodo />,
       },
     ],
   },
@@ -32,7 +38,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <AuthProvider>
-      <RouterProvider router={router} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <RouterProvider router={router} />
+      </Suspense>
     </AuthProvider>
   )
 }
