@@ -1,7 +1,7 @@
 import { axiosInstance } from 'api/index'
 
 class TodoService {
-  async createTodo(todo: string, token: string | null) {
+  createTodo = async (todo: string, token: string | null) => {
     try {
       if (!token) {
         throw new Error('토큰이 존재하지 않습니다.')
@@ -23,7 +23,7 @@ class TodoService {
     }
   }
 
-  async getTodos(token: string | null) {
+  getTodos = async (token: string | null) => {
     try {
       if (!token) {
         throw new Error('토큰이 존재하지 않습니다.')
@@ -44,12 +44,12 @@ class TodoService {
     }
   }
 
-  async updateTodo(
+  updateTodo = async (
     id: string,
     todo: string,
     isCompleted: boolean,
     token: string | null,
-  ) {
+  ) => {
     const body = {
       todo,
       isCompleted,
@@ -70,7 +70,7 @@ class TodoService {
     }
   }
 
-  async deleteTodo(id: string, token: string | null) {
+  deleteTodo = async (id: string, token: string | null) => {
     const url = `/todos/${id}`
     if (!token) {
       throw new Error('토큰이 존재하지 않습니다.')
