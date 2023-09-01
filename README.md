@@ -6,7 +6,7 @@
 
 - 주제 : 로그인/회원가입/데이터 통신을 통한 투두 업데이트 기능을 포함한 투두리스트 웹 어플리케이션
 - 과제 조건 레포 : [원티드 프리온보딩 프론트엔드 - 선발 과제](https://github.com/walking-sunset/selection-task)
-- 작업 기간 : 2023.08.29 ~2023.09.01
+- 작업 기간 : 2023.07.31 ~2023.08.06
 - 팀 작업 레포지토리 : [[Week 1] Best Practice of Wanted Pre-onboarding Assignment](https://github.com/pre-onboarding-12th-team3/pre-onboarding-12th-1-3)
 
 ## 이름
