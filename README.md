@@ -82,3 +82,6 @@ https://wanted-pre-onboarding-frontend-eight-alpha.vercel.app/
 
 - lazy, Suspense를 사용하여 코드스플리팅을 했고, 페이지 로딩을 구현했습니다.
 - 로그인 상태를 확인하는 페이지에서 잠시 해당 페이지가 보여졌다 사라지는 현상을 방지하기 위해 `ProtectedRoute`를 구현했습니다.
+- 웹 접근성을 고려한 마크업
+  - 시멘틱한 마크업을 위해 적절한 시멘틱 태그를 사용하도록 노력했습니다.
+    ![마크업](./docs/markUp.png)
